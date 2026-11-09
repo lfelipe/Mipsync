@@ -18,6 +18,7 @@ jobs:
           ref: d6420bdfcc9088543421e9fa566464552f05aa1b
           persist-credentials: false
       - uses: msys2/setup-msys2@ec48f7c5447b3140e2b088413ae3a55687bccb6e # v2.33.0
+        id: msys2
         with:
           msystem: UCRT64
           update: true
@@ -25,4 +26,4 @@ jobs:
       - name: Configure, build and test
         shell: pwsh
         run: |
-          ./scripts/BuildEngine.ps1 -CompilerRoot C:\msys64\ucrt64\bin -Jobs 4
+          ./scripts/BuildEngine.ps1 -CompilerRoot '${{ steps.msys2.outputs.msys2-location }}\ucrt64\bin' -Jobs 4
